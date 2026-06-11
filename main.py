@@ -12,10 +12,10 @@ import pytz
 from config import settings
 from database import supabase
 from data_ingestion.upstox_client import UpstoxClient
-from market_structure.structure_engine import StructureEngine
-from signal_engine.signal_builder import SignalBuilder
-from risk_engine.position_sizer import PositionSizer
-from alerts.telegram_bot import TelegramAlert
+from data_ingestion.structure_engine import StructureEngine
+from data_ingestion.signal_builder import SignalBuilder
+from data_ingestion.position_sizer import PositionSizer
+from data_ingestion.telegram_bot import TelegramAlert
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 # Setup logging
