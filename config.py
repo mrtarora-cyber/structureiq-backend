@@ -59,3 +59,22 @@ class Settings:
     PRIMARY_TIMEFRAME: str = "15m"    # Main timeframe for signals
 
 settings = Settings()
+import os
+from dhanhq import dhanhq
+
+# 1. Automatically fetch the secure credentials you saved in Render 
+DHAN_CLIENT_ID = os.environ.get("DHAN_CLIENT_ID")
+DHAN_ACCESS_TOKEN = os.environ.get("DHAN_ACCESS_TOKEN")
+
+# 2. Establish the official verified connection instance
+try:
+    dhan = dhanhq(DHAN_CLIENT_ID, DHAN_ACCESS_TOKEN)
+    print("Successfully connected to Dhan Broker API.")
+    
+    # Test connection by pulling account profile balance
+    profile = dhan.get_fund_limits()
+    print("Connection Active. Account Status:", profile)
+    
+except Exception as e:
+    print(f"Failed to connect to Dhan Broker: {str(e)}")
+    print("Please verify your Render Environment Variables match your active Dhan dashboard.")
