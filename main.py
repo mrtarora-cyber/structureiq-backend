@@ -5,6 +5,8 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 import json
+from dhanhq import dhanhq
+from config import DHAN_CLIENT_ID, DHAN_ACCESS_TOKEN
 import logging
 from datetime import datetime
 import pytz
@@ -22,7 +24,15 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
+# Initialize Dhan Broker Client Connection
+try:
+    if DHAN_CLIENT_ID and DHAN_ACCESS_TOKEN:
+        dhan = dhanhq(DHAN_CLIENT_ID, DHAN_ACCESS_TOKEN)
+        print("Dhan API initialization successful.")
+    else:
+        print("Dhan API credentials missing from environment variables.")
+except Exception as e:
+    print(f"Failed to connect to Dhan Broker: {str(e)}")
 # Create FastAPI app
 app = FastAPI(
     title="StructureIQ",
